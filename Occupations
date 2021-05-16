@@ -1,0 +1,6 @@
+# https://www.hackerrank.com/challenges/occupations/problem
+
+SELECT [Doctor], [Professor], [Singer], [Actor] 
+FROM (SELECT ROW_NUMBER() OVER(PARTITION BY OCCUPATION ORDER BY NAME)ROW_NUM, [NAME], [OCCUPATION] FROM OCCUPATIONS GROUP BY OCCUPATION, NAME) AS SOURCE 
+PIVOT (MIN([NAME]) FOR [OCCUPATION] IN ([Doctor], [Professor], [Singer], [Actor] )) AS pvt
+ORDER BY row_num;
